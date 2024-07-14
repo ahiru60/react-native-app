@@ -1,11 +1,17 @@
 // screens/WelcomeScreen.js
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity,ActivityIndicator,FlatList,Image } from 'react-native';
+import axios from 'axios';
+import CharacterList from '../Components/CharacterList';
+
 
 const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Characters list goes here! You are free to come up with a design</Text>
+      <View style={styles.container}>
+          <Text style={styles.title}>Game of Thrones Characters</Text>
+      <CharacterList></CharacterList>
+    </View>
       <TouchableOpacity style={styles.settingsButton} onPress={() => navigation.navigate('Profile')}>
         <Text style={styles.settingsText}>⚙️</Text>
       </TouchableOpacity>
@@ -18,7 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#1E1E1E',
   },
   text: {
     color: '#FFF',
@@ -35,6 +41,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 24,
   },
+  title:{
+    marginTop:100,
+    marginBottom:15,
+    fontSize:24,
+    fontWeight:'700',
+    color:'#FFA726'
+  }
 });
 
 export default WelcomeScreen;

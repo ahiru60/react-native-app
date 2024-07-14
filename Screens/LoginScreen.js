@@ -1,5 +1,5 @@
 // screens/LoginScreen.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import FloatingLabelInput from '../Components/FloatingLabelInput';
 import AppBrandName from '../Components/AppBrandName';
@@ -13,13 +13,12 @@ const LoginScreen = ({ navigation }) => {
   
 
   const handleLogin = async () => {
-    if(email == '' || password != ''){
+    if(email != '' && password != ''){
       const auth = getAuth();
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    // ...
       navigation.reset({
         index: 0,
         routes: [{ name: 'Welcome' }],  
@@ -29,7 +28,7 @@ signInWithEmailAndPassword(auth, email, password)
     const errorCode = error.code;
     const errorMessage = error.message;
     if(errorCode == 'auth/invalid-email'){
-      setError('Invalid email');
+      setError('Invalid Email');
     }
     else{
       setError(errorCode);
@@ -43,6 +42,7 @@ signInWithEmailAndPassword(auth, email, password)
     }
 
   };
+
 
   return (
     <View style={styles.container}>
@@ -65,6 +65,7 @@ signInWithEmailAndPassword(auth, email, password)
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
       <Text style={styles.error}>{error}</Text>
+      
       <MainButton title = {'Sign In'} onPress={() => handleLogin()}/>
       <View style={styles.signupText}>
         <Text style={styles.signupPhrase}>Don't have an account? </Text>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 30,
-    backgroundColor: '#000',
+    backgroundColor: '#1E1E1E',
   },
   forgotPassword: {
     color: '#FFF',
@@ -90,6 +91,13 @@ const styles = StyleSheet.create({
   },
   AppName: {
     marginBottom: 50,
+  },
+  loading: {
+    textAlign:'center',
+    width: 'auto',
+    color:'white',
+    marginBottom:15,
+    fontWeight:'600'
   },
   signupText: {
     color:'#FFF',
